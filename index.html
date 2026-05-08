@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>HBKC | Futuristic Glamour Portfolio</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+
+<script src="https://unpkg.com/feather-icons"></script>
+
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: {
+                    sans: ['Inter', 'sans-serif'],
+                    display: ['"Space Grotesk"', 'sans-serif'],
+                    glamour: ['Syncopate', 'sans-serif'],
+                },
+                colors: {
+                    futur: {
+                        bg: '#030305',
+                        surface: 'rgba(15, 15, 20, 0.55)',
+                        cyan: '#00F0FF',
+                        purple: '#B000FF',
+                        pink: '#FF007F',
+                        gold: '#FFD700',
+                        text: '#F0F4F8',
+                        muted: '#8B949E'
+                    }
+                }
+            }
+        }
+    }
+</script>
+
+<style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+        background-color: var(--futur-bg);
+        color: #F0F4F8;
+        font-family: 'Inter', sans-serif;
+        overflow-x: hidden;
+        cursor: none;
+    }
+
+    h1, h2, h3, .font-display { font-family: 'Space Grotesk', sans-serif; }
+    .font-glamour { font-family: 'Syncopate', sans-serif; }
+
+    /* ── CUSTOM CURSOR ── */
+    #cursor-dot {
+        position: fixed; width: 8px; height: 8px; background: #00F0FF; border-radius: 50%;
+        pointer-events: none; z-index: 9999; transform: translate(-50%, -50%);
+        box-shadow: 0 0 15px #00F0FF, 0 0 30px #00F0FF; transition: transform 0.1s;
+    }
+    #cursor-ring {
+        position: fixed; width: 40px; height: 40px; border: 1px solid rgba(0, 240, 255, 0.4); border-radius: 50%;
+        pointer-events: none; z-index: 9998; transform: translate(-50%, -50%);
+        transition: left 0.15s ease-out, top 0.15s ease-out, transform 0.3s;
+    }
+
+    /* ── BACKGROUND CANVAS ── */
+    #cyber-canvas {
+        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        z-index: 0; pointer-events: none; opacity: 0.8;
+    }
+
+    /* ── AMBIENT NEON GLOWS ── */
+    .neon-glow {
+        position: fixed; border-radius: 50%; filter: blur(150px); opacity: 0.4; z-index: 0; pointer-events: none;
+        animation: pulseGlow 10s infinite alternate;
+    }
+    .glow-cyan { width: 50vw; height: 50vw; background: rgba(0, 240, 255, 0.15); top: -10%; left: -10%; }
+    .glow-purple { width: 60vw; height: 60vw; background: rgba(176, 0, 255, 0.15); bottom: -20%; right: -10%; animation-delay: -5s; }
+
+    @keyframes pulseGlow {
+        0% { transform: scale(1); opacity: 0.3; }
+        100% { transform: scale(1.1); opacity: 0.5; }
+    }
+
+    /* ── GLASSMORPHISM & NEON BORDERS ── */
+    .glass-panel {
+        background: rgba(15, 15, 20, 0.6);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 24px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .neon-border::before {
+        content: ""; position: absolute; inset: 0; border-radius: 24px; padding: 1px;
+        background: linear-gradient(135deg, #00F0FF, #B000FF, #FF007F);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor; mask-composite: exclude;
+        opacity: 0.3; transition: opacity 0.5s ease; pointer-events: none;
+    }
+
+    /* ── GLITCH TYPOGRAPHY ── */
+    .glitch-text { position: relative; display: inline-block; font-weight: 700; }
+    .glitch-text::before, .glitch-text::after {
+        content: attr(data-text); position: absolute; top: 0; left: 0; pointer-events: none; width: 100%; height: 100%;
+    }
+    .glitch-text::before { color: #00F0FF; z-index: -1; animation: glitch-anim-1 3s infinite linear alternate-reverse; }
+    .glitch-text::after { color: #FF007F; z-index: -2; animation: glitch-anim-2 3s infinite linear alternate-reverse; }
+
+    @keyframes glitch-anim-1 {
+        0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
+        20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+        40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
+        60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
+        80% { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 1px); }
+        100% { clip-path: inset(30% 0 50% 0); transform: translate(1px, -1px); }
+    }
+    @keyframes glitch-anim-2 {
+        0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -1px); }
+        20% { clip-path: inset(30% 0 20% 0); transform: translate(-2px, 1px); }
+        40% { clip-path: inset(70% 0 10% 0); transform: translate(2px, -2px); }
+        60% { clip-path: inset(20% 0 50% 0); transform: translate(-2px, 2px); }
+        80% { clip-path: inset(50% 0 30% 0); transform: translate(1px, -1px); }
+        100% { clip-path: inset(5% 0 80% 0); transform: translate(-1px, 1px); }
+    }
+
+    .text-gradient {
+        background: linear-gradient(to right, #00F0FF, #B000FF, #FF007F);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    /* ── MODULE CARDS (MAGNETIC & GLOWING) ── */
+    .module-card {
+        transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        cursor: pointer; z-index: 10;
+    }
+    .module-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(0, 240, 255, 0.15), 0 0 20px rgba(176, 0, 255, 0.1);
+    }
+    .module-card:hover .neon-border::before { opacity: 1; }
+    
+    .module-card.locked { filter: grayscale(80%) opacity(0.6); pointer-events: none; }
+    
+    /* ── CLICK RIPPLE EFFECT ── */
+    .ripple {
+        position: absolute; border-radius: 50%; background: rgba(0, 240, 255, 0.4);
+        transform: scale(0); animation: ripple-anim 0.6s linear; pointer-events: none;
+    }
+    @keyframes ripple-anim { to { transform: scale(4); opacity: 0; } }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: 0.2s; }
+    .delay-2 { transition-delay: 0.4s; }
+
+    /* ── AVATAR GLOW SPIN ── */
+    .avatar-ring {
+        background: conic-gradient(from 0deg, #00F0FF, #B000FF, #FF007F, #00F0FF);
+        animation: spin 4s linear infinite;
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    .content-layer { position: relative; z-index: 10; }
+
+    /* Fix Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #030305; }
+    ::-webkit-scrollbar-thumb { background: #B000FF; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #00F0FF; }
+
+    /* Fix PDF Frame */
+    .pdf-frame {
+        position: relative; width: 100%; height: 70vh; min-height: 500px;
+        border-radius: 16px; overflow: hidden; background: #000;
+    }
+</style>
+</head>
+<body>
+
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<canvas id="cyber-canvas"></canvas>
+<div class="neon-glow glow-cyan"></div>
+<div class="neon-glow glow-purple"></div>
+
+<nav class="fixed top-0 w-full z-50 transition-all duration-300" id="navbar">
+    <div class="max-w-7xl mx-auto px-6 sm:px-12 py-5 flex justify-between items-center">
+        <div class="font-glamour text-lg sm:text-xl font-bold tracking-[0.2em] text-futur-cyan flex items-center gap-3">
+            <div class="w-3 h-3 bg-futur-pink rounded-full shadow-[0_0_10px_#FF007F] animate-pulse"></div>
+            HBKC<span class="text-white">.SYS</span>
+        </div>
+        <div class="hidden md:flex space-x-10 text-[10px] tracking-[0.3em] font-glamour uppercase text-futur-muted">
+            <a href="#init" class="hover:text-futur-cyan transition-colors duration-300 cursor-hover">Initialization</a>
+            <a href="#modules" class="hover:text-futur-purple transition-colors duration-300 cursor-hover">Neural Modules</a>
+            <a href="#status" class="hover:text-futur-pink transition-colors duration-300 cursor-hover">Status</a>
+        </div>
+    </div>
+</nav>
+
+<main class="content-layer">
+
+    <section id="init" class="min-h-screen flex flex-col justify-center px-6 sm:px-12 max-w-7xl mx-auto pt-24 pb-12">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            
+            <div class="lg:col-span-5 order-2 lg:order-1 reveal">
+                <div class="glass-panel neon-border p-8 sm:p-10 relative">
+                    <div class="flex justify-center mb-8">
+                        <div class="relative w-36 h-36 sm:w-44 sm:h-44 rounded-full p-1 cursor-hover hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 avatar-ring rounded-full blur-[4px] opacity-80"></div>
+                            <div class="absolute inset-0 avatar-ring rounded-full"></div>
+                            <div class="relative w-full h-full bg-[#050507] rounded-full overflow-hidden border-2 border-[#050507] z-10 flex items-center justify-center">
+                                <img src="https://ui-avatars.com/api/?name=Khánh+Chi&background=0D0D0D&color=00F0FF&size=200" alt="Avatar" class="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center border-b border-white/10 pb-6 mb-6">
+                        <h3 class="font-display text-2xl font-bold text-white tracking-wide">Hoàng Bùi Khánh Chi</h3>
+                        <p class="text-xs uppercase tracking-[0.3em] text-futur-cyan mt-2 font-glamour">Digital Explorer</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-futur-muted uppercase tracking-widest text-[10px]">ID Code</span>
+                            <strong class="font-display tracking-widest text-futur-cyan">25040049</strong>
+                        </div>
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-futur-muted uppercase tracking-widest text-[10px]">Cohort</span>
+                            <strong class="font-display tracking-widest">K59</strong>
+                        </div>
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-futur-muted uppercase tracking-widest text-[10px]">Major</span>
+                            <strong class="font-display tracking-widest text-right">Sư phạm Tiếng Anh</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 order-1 lg:order-2 space-y-8 reveal delay-1">
+                <div class="inline-flex items-center space-x-3 px-4 py-2 rounded-full border border-futur-cyan/30 bg-futur-cyan/5">
+                    <span class="w-2 h-2 rounded-full bg-futur-cyan animate-pulse"></span>
+                    <span class="text-[10px] font-glamour tracking-widest uppercase text-futur-cyan">System Online · V6.0</span>
+                </div>
+                
+                <h1 class="text-5xl sm:text-7xl lg:text-[5.5rem] font-display font-bold leading-[1.05] tracking-tight">
+                    <span class="block text-xl sm:text-2xl mb-4 font-normal text-futur-muted">Redefining Education via</span>
+                    <span class="glitch-text text-white" data-text="ARTIFICIAL">ARTIFICIAL</span><br>
+                    <span class="text-gradient">INTELLIGENCE.</span>
+                </h1>
+                
+                <p class="text-futur-muted text-sm sm:text-base leading-relaxed max-w-xl font-light">
+                    Tích hợp Công nghệ số & AI để tối ưu hóa tri thức, sáng tạo nội dung giảng dạy và định hình tư duy giáo dục thế hệ mới tại ULIS-VNU.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="modules" class="py-24 max-w-7xl mx-auto px-6 sm:px-12">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-white/10 pb-6 reveal">
+            <div>
+                <h2 class="font-display text-4xl sm:text-5xl font-bold mb-3">Neural Modules.</h2>
+                <p class="text-futur-muted text-xs uppercase tracking-widest">06 Phân hệ Kỹ năng Số</p>
+            </div>
+            <div class="text-[10px] uppercase tracking-[0.2em] font-bold text-futur-pink mt-4 md:mt-0 px-4 py-2 bg-futur-pink/10 border border-futur-pink/30 rounded-full">
+                Status: 2/6 Completed
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <div class="module-card glass-panel neon-border p-8 reveal cursor-hover" onclick="openModal('m1'); addRipple(event, this)">
+                <div class="flex justify-between items-start mb-8">
+                    <span class="font-display text-5xl font-bold text-white/10">01</span>
+                    <span class="text-[9px] uppercase tracking-widest px-3 py-1 bg-futur-cyan/10 text-futur-cyan border border-futur-cyan/30 rounded-full shadow-[0_0_10px_rgba(0,240,255,0.2)]">COMPILED</span>
+                </div>
+                <h3 class="font-display text-2xl font-bold text-white mb-3">Quản lý tệp & Thư mục</h3>
+                <p class="text-futur-muted text-xs leading-relaxed mb-8">
+                    Cấu trúc hệ thống lưu trữ Cloud khoa học, quy tắc đặt tên và tối ưu hóa dữ liệu cá nhân.
+                </p>
+                <div class="text-[10px] uppercase tracking-widest text-futur-cyan flex items-center gap-2">
+                    <span>Access Data</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
+                </div>
+            </div>
+
+            <div class="module-card glass-panel neon-border p-8 reveal delay-1 cursor-hover" onclick="openModal('m2'); addRipple(event, this)">
+                <div class="flex justify-between items-start mb-8">
+                    <span class="font-display text-5xl font-bold text-white/10">02</span>
+                    <span class="text-[9px] uppercase tracking-widest px-3 py-1 bg-futur-purple/10 text-futur-purple border border-futur-purple/30 rounded-full shadow-[0_0_10px_rgba(176,0,255,0.2)]">COMPILED</span>
+                </div>
+                <h3 class="font-display text-2xl font-bold text-white mb-3">Tìm kiếm & Đánh giá</h3>
+                <p class="text-futur-muted text-xs leading-relaxed mb-8">
+                    Kỹ thuật thẩm định nguồn tin số, lọc nhiễu dữ liệu và xác thực tính học thuật.
+                </p>
+                <div class="text-[10px] uppercase tracking-widest text-futur-purple flex items-center gap-2">
+                    <span>Access Data</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
+                </div>
+            </div>
+
+            <div class="module-card glass-panel neon-border p-8 locked reveal delay-2">
+                <div class="flex justify-between items-start mb-8">
+                    <span class="font-display text-5xl font-bold text-white/5">03</span>
+                    <span class="text-[9px] uppercase tracking-widest px-3 py-1 bg-white/5 text-white/40 border border-white/10 rounded-full">PENDING</span>
+                </div>
+                <h3 class="font-display text-2xl font-bold text-white/50 mb-3">Viết Prompt hiệu quả</h3>
+                <p class="text-futur-muted/60 text-xs leading-relaxed mb-8">Cấu trúc lệnh AI nâng cao: Persona, Task, Context, Format để tối ưu đầu ra.</p>
+            </div>
+
+            <div class="module-card glass-panel neon-border p-8 locked reveal">
+                <div class="flex justify-between items-start mb-8">
+                    <span class="font-display text-5xl font-bold text-white/5">04</span>
+                    <span class="text-[9px] uppercase tracking-widest px-3 py-1 bg-white/5 text-white/40 border border-white/10 rounded-full">PENDING</span>
+                </div>
+                <h3 class="font-display text-2xl font-bold text-white/50 mb-3">Hợp tác trực tuyến</h3>
+                <p class="text-futur-muted/60 text-xs leading-relaxed mb-8">Ứng dụng công cụ làm việc nhóm đồng bộ và bất đồng bộ hiệu suất cao.</p>
+            </div>
+
+            <div class="module-card glass-panel neon-border p-8 locked reveal delay-1">
+                <div class="flex justify-between items-start mb-8">
+                    <span class="font-display text-5xl font-bold text-white/5">05</span>
+                    <span class="text-[9px] uppercase tracking-widest px-3 py-1 bg-white/5 text-white/40 border border-white/10 rounded-full">PENDING</span>
+                </div>
+                <h3 class="font-display text-2xl font-bold text-white/50 mb-3">Sáng tạo nội dung AI</h3>
+                <p class="text-futur-muted/60 text-xs leading-relaxed mb-8">Thiết kế hình ảnh, video và bài thuyết trình với sự hỗ trợ của trí tuệ nhân tạo.</p>
+            </div>
+
+            <div class="module-card glass-panel neon-border p-8 locked reveal delay-2">
+                <div class="flex justify-between items-start mb-8">
+                    <span class="font-display text-5xl font-bold text-white/5">06</span>
+                    <span class="text-[9px] uppercase tracking-widest px-3 py-1 bg-white/5 text-white/40 border border-white/10 rounded-full">PENDING</span>
+                </div>
+                <h3 class="font-display text-2xl font-bold text-white/50 mb-3">AI có trách nhiệm</h3>
+                <p class="text-futur-muted/60 text-xs leading-relaxed mb-8">Đạo đức AI, quyền riêng tư và các nguyên tắc sử dụng văn minh, bền vững.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="status" class="py-24 max-w-5xl mx-auto px-6 sm:px-12 relative reveal">
+        <div class="glass-panel neon-border p-10 sm:p-16 border-l-4 border-l-futur-pink relative overflow-hidden">
+            <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-futur-pink/10 blur-[80px] rounded-full pointer-events-none"></div>
+
+            <h2 class="font-display text-3xl sm:text-4xl font-bold mb-8 text-white">
+                System Status <span class="text-futur-pink">_</span>
+            </h2>
+            
+            <div class="space-y-6 text-futur-text/80 text-[15px] leading-[1.8] font-light relative z-10">
+                <p>
+                    Qua học phần <strong class="text-futur-cyan font-medium">Nhập môn Công nghệ số & AI</strong>, tư duy của em đã chuyển dịch từ việc "sử dụng" công cụ bản năng sang tâm thế <strong class="text-futur-purple font-medium">làm chủ hệ thống số</strong>. Sự tinh gọn và hiệu quả không tự nhiên sinh ra, nó đến từ việc thiết lập các cấu trúc logic.
+                </p>
+                <p>
+                    Portfolio này không chỉ là tập hợp bài tập — đây là minh chứng cho sự thích nghi của một sinh viên Sư phạm trong kỷ nguyên AI. Công nghệ không thay thế người thầy, nó thiết lập một tiêu chuẩn giáo dục mới: sắc bén, tinh giản và truyền cảm hứng hơn.
+                </p>
+            </div>
+
+            <div class="mt-12 pt-8 border-t border-white/10 flex justify-between items-center relative z-10">
+                <span class="font-glamour text-[10px] uppercase tracking-widest text-futur-muted">Evaluation_Score</span>
+                <span class="font-display text-3xl font-bold text-gradient drop-shadow-[0_0_15px_rgba(255,0,127,0.5)]">TỐT</span>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 mt-10 border-t border-white/5 text-center flex flex-col items-center">
+        <div class="font-glamour text-xs font-bold text-futur-cyan mb-3 tracking-[0.3em]">HBKC.SYS</div>
+        <p class="text-[9px] font-glamour uppercase tracking-widest text-futur-muted">
+            © 2026 ULIS-VNU • HOÀNG BÙI KHÁNH CHI • 25040049
+        </p>
+    </footer>
+
+</main>
+
+<div id="modal-m1" class="fixed inset-0 z-[100] bg-[#030305]/95 backdrop-blur-xl hidden opacity-0 transition-opacity duration-500 items-center justify-center p-4 sm:p-10">
+    <div class="absolute inset-0 cursor-hover" onclick="closeModal('m1')"></div>
+    <div class="glass-panel neon-border w-full max-w-6xl h-[90vh] relative flex flex-col transform scale-95 transition-transform duration-500 z-10" id="modal-content-m1">
+        
+        <div class="flex justify-between items-center p-6 border-b border-white/10">
+            <div>
+                <p class="font-glamour text-[9px] uppercase text-futur-cyan tracking-[0.3em] mb-1">Dataset 01</p>
+                <h3 class="font-display font-bold text-xl text-white">Quản lý tệp & Thư mục</h3>
+            </div>
+            <button onclick="closeModal('m1')" class="text-futur-muted hover:text-futur-cyan transition-colors cursor-hover">
+                <i data-feather="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+        
+        <div class="flex-grow p-4 relative">
+            <div class="pdf-frame">
+                <object data="tmpjsn7nt_thao-tac-co-ban-voi-tep-tin-va-thu-muc-.pdf#zoom=page-width&toolbar=0" type="application/pdf" class="w-full h-full border-none absolute inset-0">
+                    <embed src="tmpjsn7nt_thao-tac-co-ban-voi-tep-tin-va-thu-muc-.pdf#zoom=page-width&toolbar=0" type="application/pdf" class="w-full h-full border-none absolute inset-0" />
+                </object>
+            </div>
+        </div>
+        
+        <div class="p-5 border-t border-white/10 flex justify-end">
+            <a href="tmpjsn7nt_thao-tac-co-ban-voi-tep-tin-va-thu-muc-.pdf" target="_blank" class="font-glamour text-[9px] uppercase tracking-[0.3em] text-futur-cyan border border-futur-cyan/40 bg-futur-cyan/10 hover:bg-futur-cyan/20 px-6 py-3 rounded transition-colors flex items-center gap-2 cursor-hover">
+                <span>Extract Full</span> <i data-feather="external-link" class="w-3 h-3"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div id="modal-m2" class="fixed inset-0 z-[100] bg-[#030305]/95 backdrop-blur-xl hidden opacity-0 transition-opacity duration-500 items-center justify-center p-4 sm:p-10">
+    <div class="absolute inset-0 cursor-hover" onclick="closeModal('m2')"></div>
+    <div class="glass-panel neon-border w-full max-w-6xl h-[90vh] relative flex flex-col transform scale-95 transition-transform duration-500 z-10" id="modal-content-m2">
+        
+        <div class="flex justify-between items-center p-6 border-b border-white/10">
+            <div>
+                <p class="font-glamour text-[9px] uppercase text-futur-purple tracking-[0.3em] mb-1">Dataset 02</p>
+                <h3 class="font-display font-bold text-xl text-white">Tìm kiếm & Đánh giá thông tin</h3>
+            </div>
+            <button onclick="closeModal('m2')" class="text-futur-muted hover:text-futur-purple transition-colors cursor-hover">
+                <i data-feather="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+        
+        <div class="flex-grow p-4 relative">
+            <div class="pdf-frame">
+                <object data="tmpynr2qj_bao-cao-tim-kiem-va-danh-gia-thong-tin-hoc-thuat.pdf#zoom=page-width&toolbar=0" type="application/pdf" class="w-full h-full border-none absolute inset-0">
+                    <embed src="tmpynr2qj_bao-cao-tim-kiem-va-danh-gia-thong-tin-hoc-thuat.pdf#zoom=page-width&toolbar=0" type="application/pdf" class="w-full h-full border-none absolute inset-0" />
+                </object>
+            </div>
+        </div>
+        
+        <div class="p-5 border-t border-white/10 flex justify-end">
+            <a href="tmpynr2qj_bao-cao-tim-kiem-va-danh-gia-thong-tin-hoc-thuat.pdf" target="_blank" class="font-glamour text-[9px] uppercase tracking-[0.3em] text-futur-purple border border-futur-purple/40 bg-futur-purple/10 hover:bg-futur-purple/20 px-6 py-3 rounded transition-colors flex items-center gap-2 cursor-hover">
+                <span>Extract Full</span> <i data-feather="external-link" class="w-3 h-3"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    feather.replace();
+
+    /* --- CURSOR EFFECTS --- */
+    const cursorDot = document.getElementById('cursor-dot');
+    const cursorRing = document.getElementById('cursor-ring');
+    let mouseX = 0, mouseY = 0;
+    let ringX = 0, ringY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX; mouseY = e.clientY;
+        cursorDot.style.left = mouseX + 'px'; cursorDot.style.top = mouseY + 'px';
+    });
+
+    function animateCursor() {
+        ringX += (mouseX - ringX) * 0.2; ringY += (mouseY - ringY) * 0.2;
+        cursorRing.style.left = ringX + 'px'; cursorRing.style.top = ringY + 'px';
+        requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    const hoverElements = document.querySelectorAll('.cursor-hover');
+    hoverElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursorRing.style.transform = 'translate(-50%, -50%) scale(1.5)';
+            cursorRing.style.borderColor = '#FF007F';
+            cursorDot.style.background = '#FF007F';
+            cursorDot.style.boxShadow = '0 0 15px #FF007F';
+        });
+        el.addEventListener('mouseleave', () => {
+            cursorRing.style.transform = 'translate(-50%, -50%) scale(1)';
+            cursorRing.style.borderColor = 'rgba(0, 240, 255, 0.4)';
+            cursorDot.style.background = '#00F0FF';
+            cursorDot.style.boxShadow = '0 0 15px #00F0FF';
+        });
+    });
+
+    /* --- RIPPLE CLICK --- */
+    function addRipple(e, el) {
+        const r = document.createElement('span'); r.classList.add('ripple');
+        const rect = el.getBoundingClientRect(), size = Math.max(rect.width, rect.height);
+        r.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX - rect.left - size/2}px;top:${e.clientY - rect.top - size/2}px`;
+        el.appendChild(r); setTimeout(() => r.remove(), 600);
+    }
+
+    /* --- BACKGROUND CANVAS ANIMATION --- */
+    const canvas = document.getElementById('cyber-canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H;
+    let particles = [];
+
+    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize);
+    resize();
+
+    class CyberParticle {
+        constructor() {
+            this.x = Math.random() * W; this.y = Math.random() * H;
+            this.vx = (Math.random() - 0.5) * 1; this.vy = (Math.random() - 0.5) * 1;
+            this.size = Math.random() * 2;
+            const colors = ['#00F0FF', '#B000FF', '#FF007F'];
+            this.color = colors[Math.floor(Math.random() * colors.length)];
+        }
+        update() {
+            this.x += this.vx; this.y += this.vy;
+            if (this.x < 0 || this.x > W) this.vx *= -1;
+            if (this.y < 0 || this.y > H) this.vy *= -1;
+        }
+        draw() {
+            ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = this.color; ctx.fill();
+        }
+    }
+
+    for (let i = 0; i < 70; i++) particles.push(new CyberParticle());
+
+    function drawCanvas() {
+        ctx.clearRect(0, 0, W, H);
+        particles.forEach(p => { p.update(); p.draw(); });
+        
+        // Draw connecting lines
+        for(let i=0; i<particles.length; i++) {
+            for(let j=i+1; j<particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx*dx + dy*dy);
+                if(dist < 120) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 - dist/1200})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(drawCanvas);
+    }
+    drawCanvas();
+
+    /* --- NAVBAR SCROLL --- */
+    window.addEventListener('scroll', () => {
+        const nav = document.getElementById('navbar');
+        if (window.scrollY > 50) {
+            nav.classList.add('glass-panel', 'border-b', 'border-white/10');
+            nav.classList.remove('border-transparent');
+        } else {
+            nav.classList.remove('glass-panel', 'border-b', 'border-white/10');
+            nav.classList.add('border-transparent');
+        }
+    });
+
+    /* --- SCROLL REVEAL --- */
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    /* --- MODALS --- */
+    function openModal(id) {
+        const modal = document.getElementById(`modal-${id}`);
+        const content = document.getElementById(`modal-content-${id}`);
+        modal.classList.remove('hidden'); modal.style.display = 'flex';
+        void modal.offsetWidth;
+        modal.classList.remove('opacity-0'); content.classList.remove('scale-95');
+        document.body.style.overflow = 'hidden'; 
+    }
+
+    function closeModal(id) {
+        const modal = document.getElementById(`modal-${id}`);
+        const content = document.getElementById(`modal-content-${id}`);
+        modal.classList.add('opacity-0'); content.classList.add('scale-95');
+        document.body.style.overflow = '';
+        setTimeout(() => { modal.classList.add('hidden'); modal.style.display = 'none'; }, 500); 
+    }
+    
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            const openModalDiv = document.querySelector('[id^="modal-"]:not(.hidden)');
+            if (openModalDiv) closeModal(openModalDiv.id.split('-')[1]);
+        }
+    });
+</script>
+</body>
+</html>
